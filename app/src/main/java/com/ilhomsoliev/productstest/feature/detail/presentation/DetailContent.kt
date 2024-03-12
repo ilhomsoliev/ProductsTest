@@ -1,5 +1,6 @@
 package com.ilhomsoliev.productstest.feature.detail.presentation
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.ilhomsoliev.productstest.R
 import com.ilhomsoliev.productstest.domain.model.Product
 import com.ilhomsoliev.productstest.feature.shared.SCachedImage
 
@@ -67,15 +70,20 @@ fun DetailContent(
                 )
             }
             item {
-                Text(text = "Price: ${product.price}")
-                Text(text = "Rating: ${product.rating}")
-                Text(text = "Brand: ${product.brand}")
-                Text(text = "Category: ${product.category}")
-                Text(text = "Stock: ${product.stock}")
-                Text(text = "Discount Percentage: ${product.discountPercentage}")
+                Text(text = stringResource(R.string.price, product.price))
+                Text(text = stringResource(R.string.rating, product.rating))
+                Text(text = stringResource(R.string.brand, product.brand))
+                Text(text = stringResource(R.string.category, product.category))
+                Text(text = stringResource(R.string.stock, product.stock))
+                Text(
+                    text = stringResource(
+                        R.string.discount_percentage,
+                        product.discountPercentage
+                    )
+                )
             }
             item {
-                Text(text = "Images: ")
+                Text(text = stringResource(R.string.images))
             }
             items(product.images) {
                 SCachedImage(
@@ -84,11 +92,9 @@ fun DetailContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp)),
-                    )
+                )
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
-
     }
-
-
 }

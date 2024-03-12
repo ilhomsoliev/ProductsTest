@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ProductsTest</string>
+    <string name="products">Products</string>
+    <string name="price">Price: %1$s</string>
+    <string name="rating">Rating: %1$s</string>
+    <string name="brand">Brand: %1$s</string>
+    <string name="category">Category: %1$s</string>
+    <string name="stock">Stock: %1$s</string>
+    <string name="discount_percentage">Discount Percentage: %1$s</string>
+    <string name="images">"Images: "</string>
+    <string name="error">Error</string>
+    <string name="click_to_exit">Click to exit</string>
+    <string name="retry">Retry</string>
+    <string name="search">Search</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +31,11 @@ fun CustomSpinner(
                 expanded = it
             }) {
             TextField(
-                value = selectedCategory,
+                value = selectedCategory.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.ROOT
+                    ) else it.toString()
+                },
                 onValueChange = { },
                 readOnly = true,
                 trailingIcon = {
@@ -49,7 +54,7 @@ fun CustomSpinner(
                 }) {
                 options.forEach {
                     DropdownMenuItem(modifier = Modifier.fillMaxWidth(), text = {
-                        Text(text = it)
+                        Text(text = it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() })
                     }, onClick = {
                         onSelectCategory(it)
                         expanded = false

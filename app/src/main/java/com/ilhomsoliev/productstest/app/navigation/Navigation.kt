@@ -5,8 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.gson.Gson
-import com.ilhomsoliev.productstest.domain.model.Product
 import com.ilhomsoliev.productstest.feature.detail.presentation.DetailScreen
 import com.ilhomsoliev.productstest.feature.home.presentation.HomeScreen
 import com.ilhomsoliev.productstest.feature.search.presentation.SearchScreen
@@ -32,8 +30,7 @@ fun Navigation() {
         composable(
             route = Screens.Detail.route
         ) {
-            val profile =
-                it.arguments?.getString("product")?.let { Gson().fromJson(it, Product::class.java) }
+            val profile = Screens.Detail.getProduct(it)
             DetailScreen(profile) {
                 navController.popBackStack()
             }

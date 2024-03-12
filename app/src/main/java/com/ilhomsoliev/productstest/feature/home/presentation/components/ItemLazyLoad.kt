@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.ilhomsoliev.productstest.R
 
 @Composable
 fun PageLoader(modifier: Modifier = Modifier) {
@@ -61,7 +63,7 @@ fun ErrorMessage(
             maxLines = 2
         )
         OutlinedButton(onClick = onClickRetry) {
-            Text(text = "Retry")
+            Text(text = stringResource(R.string.retry))
         }
     }
 }

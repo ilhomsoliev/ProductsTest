@@ -16,9 +16,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.ilhomsoliev.productstest.R
 import com.ilhomsoliev.productstest.domain.model.Product
 import com.ilhomsoliev.productstest.feature.home.presentation.components.ErrorMessage
 import com.ilhomsoliev.productstest.feature.home.presentation.components.LoadingNextPageItem
@@ -49,7 +51,7 @@ fun SearchContent(
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = "Search")
+                Text(text = stringResource(R.string.search))
             }, navigationIcon = {
                 IconButton(onClick = {
                     callback.onBack()

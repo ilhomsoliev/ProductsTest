@@ -3,6 +3,8 @@ package com.ilhomsoliev.productstest.feature.detail.presentation
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.ilhomsoliev.productstest.R
 import com.ilhomsoliev.productstest.domain.model.Product
 
 @Composable
@@ -21,11 +23,11 @@ fun DetailScreen(
         )
     }
     if (product == null) {
-        Text(text = "Error")
+        Text(text = stringResource(R.string.error))
         Button(onClick = {
             onBack()
         }) {
-            Text(text = "Click to exit")
+            Text(text = stringResource(R.string.click_to_exit))
         }
     }
 }
