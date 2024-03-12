@@ -25,11 +25,11 @@ import com.ilhomsoliev.productstest.presentation.home.components.PageLoader
 import com.ilhomsoliev.productstest.presentation.home.components.ProductItem
 
 data class HomeState(
-    val moviePagingItems: LazyPagingItems<Product>
+    val productPagingItems: LazyPagingItems<Product>
 )
 
 interface HomeCallback {
-    fun onClick(id: Product)
+    fun onClick(product: Product)
     fun onSearchClick()
 }
 
@@ -39,7 +39,7 @@ fun HomeContent(
     state: HomeState,
     callback: HomeCallback,
 ) {
-    val moviePagingItems: LazyPagingItems<Product> = state.moviePagingItems
+    val productPagingItems: LazyPagingItems<Product> = state.productPagingItems
 
     Scaffold(
         topBar = {
@@ -60,8 +60,8 @@ fun HomeContent(
                 .padding(it)
         ) {
             item { Spacer(modifier = Modifier.padding(4.dp)) }
-            items(moviePagingItems.itemCount) { index ->
-                val item = moviePagingItems[index]!!
+            items(productPagingItems.itemCount) { index ->
+                val item = productPagingItems[index]!!
                 ProductItem(
                     modifier = Modifier.padding(vertical = 8.dp),
                     imageUrl = item.thumbnail,
@@ -74,14 +74,14 @@ fun HomeContent(
                 Divider()
             }
 
-            moviePagingItems.apply {
+            productPagingItems.apply {
                 when {
                     loadState.refresh is LoadState.Loading -> {
                         item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
                     }
 
                     loadState.refresh is LoadState.Error -> {
-                        val error = moviePagingItems.loadState.refresh as LoadState.Error
+                        val error = productPagingItems.loadState.refresh as LoadState.Error
                         item {
                             ErrorMessage(
                                 modifier = Modifier.fillParentMaxSize(),
@@ -95,7 +95,7 @@ fun HomeContent(
                     }
 
                     loadState.append is LoadState.Error -> {
-                        val error = moviePagingItems.loadState.append as LoadState.Error
+                        val error = productPagingItems.loadState.append as LoadState.Error
                         item {
                             ErrorMessage(
                                 modifier = Modifier,

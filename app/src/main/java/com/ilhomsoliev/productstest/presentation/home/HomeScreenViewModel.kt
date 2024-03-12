@@ -11,24 +11,24 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(
-    private val getMoviesUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetProductsUseCase
 ) : ViewModel() {
-    private val _moviesState: MutableStateFlow<PagingData<Product>> =
+    private val _productsState: MutableStateFlow<PagingData<Product>> =
         MutableStateFlow(value = PagingData.empty())
-    val moviesState: MutableStateFlow<PagingData<Product>> get() = _moviesState
+    val productsState: MutableStateFlow<PagingData<Product>> get() = _productsState
 
     init {
         viewModelScope.launch {
-            getMovies()
+            getProducts()
         }
     }
 
-    private suspend fun getMovies() {
-        getMoviesUseCase.execute(Unit)
+    private suspend fun getProducts() {
+        getProductsUseCase.execute()
             .distinctUntilChanged()
             .cachedIn(viewModelScope)
             .collect {
-                _moviesState.value = it
+                _productsState.value = it
             }
     }
 }

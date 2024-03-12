@@ -6,10 +6,11 @@ import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import com.ilhomsoliev.productstest.data.ApiClient
-import com.ilhomsoliev.productstest.data.datasource.MovieRemoteDataSource
-import com.ilhomsoliev.productstest.data.datasource.MovieRemoteDataSourceImpl
+import com.ilhomsoliev.productstest.data.datasource.ProductRemoteDataSource
+import com.ilhomsoliev.productstest.data.datasource.ProductRemoteDataSourceImpl
 import com.ilhomsoliev.productstest.data.repository.ProductRepositoryImpl
 import com.ilhomsoliev.productstest.domain.repository.ProductRepository
+import com.ilhomsoliev.productstest.domain.usecase.GetProductsByQueryUseCase
 import com.ilhomsoliev.productstest.domain.usecase.GetProductsUseCase
 import com.ilhomsoliev.productstest.presentation.home.HomeScreenViewModel
 import com.ilhomsoliev.productstest.presentation.search.SearchScreenViewModel
@@ -38,9 +39,10 @@ class ProductsApplication : Application(), ImageLoaderFactory {
                 listOf(
                     module {
                         single { ApiClient() }
-                        single<MovieRemoteDataSource> { MovieRemoteDataSourceImpl(get()) }
+                        single<ProductRemoteDataSource> { ProductRemoteDataSourceImpl(get()) }
                         single<ProductRepository> { ProductRepositoryImpl(get()) }
                         single { GetProductsUseCase(get()) }
+                        single { GetProductsByQueryUseCase(get()) }
                     },
                     viewModelModule
                 )

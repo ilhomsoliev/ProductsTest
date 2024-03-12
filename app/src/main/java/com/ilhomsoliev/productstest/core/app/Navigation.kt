@@ -40,9 +40,11 @@ fun Navigation() {
             }
         }
         composable(route = Screens.Search.route) {
-            SearchScreen(koinViewModel()) {
+            SearchScreen(koinViewModel(), onBack = {
                 navController.popBackStack()
-            }
+            }, openDetailsScreen = {
+                navController.navigate(Screens.Detail.buildRoute(it))
+            })
         }
     }
 }

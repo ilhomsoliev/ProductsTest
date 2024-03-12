@@ -5,10 +5,10 @@ import com.ilhomsoliev.productstest.domain.model.Product
 import com.ilhomsoliev.productstest.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetProductsUseCase(
+class GetProductsByQueryUseCase(
     private val repository: ProductRepository
 ) {
-    suspend fun execute(): Flow<PagingData<Product>> {
-        return repository.getProducts()
+    suspend fun execute(query: String = ""): Flow<PagingData<Product>> {
+        return repository.getProductsByQuery(query)
     }
 }

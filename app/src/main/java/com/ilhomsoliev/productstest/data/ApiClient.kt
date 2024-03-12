@@ -1,5 +1,6 @@
 package com.ilhomsoliev.productstest.data
 
+import android.util.Log
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.ilhomsoliev.productstest.data.model.network.dto.response.ProductsResponseDto
@@ -27,10 +28,26 @@ class ApiClient {
     suspend fun getProducts(
         offset: Int,
         limit: Int,
+    ): ProductsResponseDto? {
+        val url = "https://dummyjson.com/products?skip=$offset&limit=$limit"
+        httpClient.get(url)
+            .let { response ->
+                try {
+                    return response.body<ProductsResponseDto>()
+                } catch (e: Exception) {
+                    return null
+                }
+            }
+    }
+
+    suspend fun getProductsByQuery(
+        offset: Int,
+        limit: Int,
         query: String = ""
     ): ProductsResponseDto? {
-        val queryPart = (if (query != "") "&q=$query" else "")
-        httpClient.get("https://dummyjson.com/products?skip=$offset&limit=$limit" + queryPart)
+        val url = "https://dummyjson.com/products/search?q=$query&skip=$offset&limit=$limit"
+        Log.d("Hello link", url)
+        httpClient.get(url)
             .let { response ->
                 try {
                     return response.body<ProductsResponseDto>()

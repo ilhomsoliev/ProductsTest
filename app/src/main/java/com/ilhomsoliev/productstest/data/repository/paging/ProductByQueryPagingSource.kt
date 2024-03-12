@@ -11,17 +11,19 @@ import com.ilhomsoliev.productstest.domain.model.Product
 import java.io.IOException
 
 
-class ProductPagingSource(
+class ProductByQueryPagingSource(
     private val remoteDataSource: ProductRemoteDataSource,
+    private val query: String = ""
 ) : PagingSource<Int, Product>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
         return try {
             val offset = params.key ?: INITIAL_LOAD_SIZE_OFFSET
 
-            val products = remoteDataSource.getProducts(
+            val products = remoteDataSource.getProductsByQuery(
                 offset = offset,
-                limit = NETWORK_PAGE_SIZE_LIMIT,
+                limit = params.loadSize,
+                query = query
             ) ?: return LoadResult.Error(Throwable("Null Problem"))
 
             val nextKey = if (products.products.isEmpty()) {
@@ -43,7 +45,7 @@ class ProductPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Product>): Int? {
-        return null // We dont need in offset and limit type
+        return null
     }
 
 }

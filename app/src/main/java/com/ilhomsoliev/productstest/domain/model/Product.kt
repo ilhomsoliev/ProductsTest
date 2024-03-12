@@ -16,5 +16,5 @@ data class Product(
     val thumbnail: String,
     val title: String
 ){
-    override fun toString(): String = Uri.encode(Gson().toJson(this))
+    fun toJson() : String = Uri.encode(Gson().toJson(this))
 }

@@ -10,7 +10,7 @@ sealed class Screens(val route: String) {
 
     data object Detail : Screens("Detail/{product}") {
 
-        fun buildRoute(product: Product): String = "Detail/${product}"
+        fun buildRoute(product: Product): String = "Detail/${product.toJson()}"
 
         fun getId(entry: NavBackStackEntry): String? = entry.arguments?.getString("id")
     }

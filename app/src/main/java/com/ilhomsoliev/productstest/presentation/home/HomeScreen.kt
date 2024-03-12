@@ -12,13 +12,13 @@ fun HomeScreen(
     openDetailsScreen: (id: Product) -> Unit,
     openSearchScreen: () -> Unit
 ) {
-    val moviePagingItems: LazyPagingItems<Product> = vm.moviesState.collectAsLazyPagingItems()
+    val productPagingItems: LazyPagingItems<Product> = vm.productsState.collectAsLazyPagingItems()
 
     HomeContent(
-        state = HomeState(moviePagingItems),
+        state = HomeState(productPagingItems),
         callback = object : HomeCallback {
-            override fun onClick(id: Product) {
-                openDetailsScreen(id)
+            override fun onClick(product: Product) {
+                openDetailsScreen(product)
             }
 
             override fun onSearchClick() {
