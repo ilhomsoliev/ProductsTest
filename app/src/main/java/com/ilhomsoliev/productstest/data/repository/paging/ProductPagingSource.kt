@@ -13,6 +13,7 @@ import java.io.IOException
 
 class ProductPagingSource(
     private val remoteDataSource: ProductRemoteDataSource,
+    private val category: String,
 ) : PagingSource<Int, Product>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
@@ -22,6 +23,7 @@ class ProductPagingSource(
             val products = remoteDataSource.getProducts(
                 offset = offset,
                 limit = NETWORK_PAGE_SIZE_LIMIT,
+                category = category
             ) ?: return LoadResult.Error(Throwable("Null Problem"))
 
             val nextKey = if (products.products.isEmpty()) {

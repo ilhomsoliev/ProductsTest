@@ -16,14 +16,14 @@ const val NETWORK_PAGE_SIZE_LIMIT = 10
 const val INITIAL_LOAD_SIZE_OFFSET = 0
 
 class ProductRepositoryImpl constructor(
-    private val remoteDataSource: ProductRemoteDataSource
+    private val remoteDataSource: ProductRemoteDataSource,
 ) : ProductRepository {
 
-    override suspend fun getProducts(): Flow<PagingData<Product>> {
+    override suspend fun getProducts(category: String): Flow<PagingData<Product>> {
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE_LIMIT, prefetchDistance = 2),
             pagingSourceFactory = {
-                ProductPagingSource(remoteDataSource = remoteDataSource)
+                ProductPagingSource(remoteDataSource = remoteDataSource, category = category)
             }
         ).flow
             .flowOn(Dispatchers.IO)
@@ -39,4 +39,8 @@ class ProductRepositoryImpl constructor(
         ).flow
             .flowOn(Dispatchers.IO)
     }
+
+    override suspend fun getCategories(): List<String> =
+        remoteDataSource.getCategories()?.map { it } ?: listOf()
+
 }
